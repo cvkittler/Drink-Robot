@@ -22,6 +22,8 @@ void webButton::checkChange(String &header){
   Serial.print('\t');
   Serial.print(pinNumber);
   Serial.print('\t');
+  Serial.print("State");
+  Serial.print('\t');
   Serial.print(pinState);
   Serial.print('\n');
 }
