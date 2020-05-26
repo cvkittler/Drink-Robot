@@ -8,6 +8,7 @@ class htmlServer{
   public:
     htmlServer(int port);
     void init();
+    void addButton(int pin, String Name);
     void addButton(int pin);
     void run();
     
@@ -21,6 +22,7 @@ class htmlServer{
     String currentLine;
     char c;
     int buttonPins[50];
+    String buttonNames[50];
     webButton *buttons[50];
 };
 

@@ -19,7 +19,7 @@ void htmlServer::init(){
   for (int j = 0; j < 50; j++){
     if (buttonPins[j] != -1){
       Serial.println("Made Button");
-      buttons[buttonPins[j]] = new webButton(buttonPins[j]);
+      buttons[buttonPins[j]] = new webButton(buttonPins[j],buttonNames[j]);
     }
   }
   
@@ -116,10 +116,21 @@ void htmlServer::run(){
 }
 }
 
+void htmlServer::addButton(int pin, String Name){
+  for (int i = 0; i < 50; i++){
+    if (buttonPins[i] == -1){
+      buttonPins[i] = pin;
+      buttonNames[i] = Name;
+      return;
+    }
+  }
+}
+
 void htmlServer::addButton(int pin){
   for (int i = 0; i < 50; i++){
     if (buttonPins[i] == -1){
       buttonPins[i] = pin;
+      buttonNames[i] = "";
       return;
     }
   }

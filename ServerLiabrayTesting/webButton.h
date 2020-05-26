@@ -6,11 +6,11 @@
 class webButton{
   private:
     uint8_t pinNumber;
-  
+    String Name;
   public:
     bool pinState;
-    
     webButton(int pin);
+    webButton(int pin, String Name);
     void checkChange(String &header);
     void showButton(WiFiClient &client);
     

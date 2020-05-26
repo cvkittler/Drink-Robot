@@ -4,6 +4,14 @@ webButton::webButton(int pin){
   pinNumber = pin;
   pinState = false;
   pinMode(pin, OUTPUT);
+  Name = "";
+}
+
+webButton::webButton(int pin, String name){
+  pinNumber = pin;
+  pinState = false;
+  pinMode(pin, OUTPUT);
+  Name = name;
 }
 
 void webButton::checkChange(String &header){
@@ -32,7 +40,7 @@ void webButton::showButton(WiFiClient &client){
   // Display current state, and ON/OFF buttons for Pin  
   char buttonMSG[50];
   char onHTMl[255]; char offHTMl[255];
-  sprintf(buttonMSG, "<p>Pin %d </p>", pinNumber);
+  sprintf(buttonMSG, "<p>Pin %d: %s </p>", pinNumber, Name);
   sprintf(onHTMl, "<p><a href=\"/%d/on\"><button class=\"button\">ON</button></a></p>", pinNumber);
   sprintf(offHTMl, "<p><a href=\"/%d/off\"><button class=\"button button2\">OFF</button></a></p>", pinNumber);
   client.println(buttonMSG);
