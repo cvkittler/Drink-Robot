@@ -12,7 +12,7 @@ class webButton{
     webButton(int pin);
     webButton(int pin, String Name);
     void checkChange(String &header);
-    void showButton(WiFiClient &client);
+    void show(WiFiClient &client);
     
 };
 

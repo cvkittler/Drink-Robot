@@ -1,6 +1,6 @@
 #include "serverHTML.h"
-#include "serverConfig.h"
 #include "webButton.h"
+#include "serverConfig.h"
 
 #include <WiFi.h>
 
@@ -11,6 +11,9 @@ htmlServer::htmlServer(int port){
   for (int i = 0; i < 50; i++){
     buttonPins[i] = -1;
     buttons[i] = NULL;
+  }
+  for (int i = 0; i < 50; i++){
+    text[i] = NULL;
   }
 }
 
@@ -81,14 +84,25 @@ void htmlServer::run(){
             client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
             client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
             client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
-            client.println(".button2 {background-color: #555555;}</style></head>");
+            client.println(".button2 {background-color: #555555;}");
+            client.println("</style></head>");
+            
 
             client.println("<body><h1>" + pageTitle + "</h1>");
 
+            //show text
+//            for (int i = 0; i < 50; i++){
+//              if (buttons[i] != NULL){
+//                text[i]->showText(client);
+//                Serial.println("Showing Text");
+//              }
+//            }
+            static webText testText("TEST");
+            testText.show(client);
             //show buttons
             for (int i = 0; i < 50; i++){
               if (buttons[i] != NULL){
-                buttons[i]->showButton(client);
+                buttons[i]->show(client);
                 Serial.println("Showing Button");
               }
             }
@@ -134,4 +148,14 @@ void htmlServer::addButton(int pin){
       return;
     }
   }
+}
+
+bool htmlServer::getButtonState(int button){
+  if(buttons[button] == NULL)
+    return NULL;
+  return buttons[button]->pinState;
+}
+
+void htmlServer::addText(int tag, String Text){
+      text[tag] = new webText(Text);
 }
